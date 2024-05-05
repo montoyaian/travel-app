@@ -34,7 +34,7 @@ resource "azurerm_app_service_plan" "example" {
   reserved = true
 }
 
-resource "azurerm_app_service" "example" {
+resource "azurerm_app_service" "example1" {
   name                = "app-service-travel"
   location            = azurerm_resource_group.rg_apputb.location
   resource_group_name = azurerm_resource_group.rg_apputb.name
