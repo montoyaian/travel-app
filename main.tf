@@ -35,7 +35,7 @@ resource "azurerm_app_service_plan" "example" {
 }
 
 resource "azurerm_app_service" "example" {
-  name                = "app-service-montoyita41"
+  name                = "app-service-travel"
   location            = azurerm_resource_group.rg_apputb.location
   resource_group_name = azurerm_resource_group.rg_apputb.name
   app_service_plan_id = azurerm_app_service_plan.example.id
@@ -45,3 +45,16 @@ resource "azurerm_app_service" "example" {
     linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
   }
 }
+
+resource "azurerm_app_service" "example" {
+  name                = "app-service-travel1"
+  location            = azurerm_resource_group.rg_apputb.location
+  resource_group_name = azurerm_resource_group.rg_apputb.name
+  app_service_plan_id = azurerm_app_service_plan.example.id
+
+  site_config {
+    always_on        = true
+    linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
+  }
+}
+
