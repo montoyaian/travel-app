@@ -42,7 +42,7 @@ resource "azurerm_app_service" "example1" {
 
   site_config {
     always_on        = true
-    linux_fx_version = "DOCKER|montoyita41/proyecto:${var.tag_id}"
+    linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
   }
 }
 
@@ -54,7 +54,7 @@ resource "azurerm_app_service" "example" {
 
   site_config {
     always_on        = true
-    linux_fx_version = "DOCKER|montoyita41/proyecto:${var.tag_id}"
+    linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
   }
 }
 
