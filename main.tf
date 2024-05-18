@@ -43,9 +43,9 @@ resource "azurerm_app_service" "example1" {
   site_config {
     always_on        = true
     linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
-    http_enabled     = true   
-    https_only       = false  
+    
   }
+  https_only       = false  
 }
 
 resource "azurerm_app_service" "example" {
@@ -57,8 +57,8 @@ resource "azurerm_app_service" "example" {
   site_config {
     always_on        = true
     linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
-    http_enabled     = true   
-    https_only       = false 
   }
+  https_only       = false  
 }
+
 
