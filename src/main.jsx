@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import axios from 'axios';
 window.axios = axios;
-window.axios.defaults.baseURL = 'https://travel-company.onrender.com';
+window.axios.defaults.baseURL = 'http://51.8.76.121';
 window.axios.defaults.headers.common['Accept'] = 'application/json';
 window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
