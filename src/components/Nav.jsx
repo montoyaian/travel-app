@@ -7,6 +7,7 @@ export const Nav = () => {
   const logout =async()=>{ 
     storage.remove('token')
     storage.remove('name')
+    storage.remove('user_role')
     go("/Login")
   }
   const user_role = storage.get('user_role');
