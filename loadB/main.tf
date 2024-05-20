@@ -20,65 +20,6 @@ resource "azurerm_resource_group" "rg_apputb" {
   location = "East Us"
 }
 
-resource "azurerm_app_service_plan" "example" {
-  name                = "example-app-service-plan1"
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
-  kind                = "Linux"
-
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
-  reserved = true
-}
-
-resource "azurerm_app_service" "example1" {
-  name                = "app-service-travel"
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
-  app_service_plan_id = azurerm_app_service_plan.example.id
-
-  site_config {
-    always_on        = true
-    linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
-  }
-}
-
-resource "azurerm_app_service" "example" {
-  name                = "app-service-travel1"
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
-  app_service_plan_id = azurerm_app_service_plan.example.id
-
-  site_config {
-    always_on        = true
-    linux_fx_version = "DOCKER|montoyita41/proyecto-react:${var.tag_id}"
-  }
-}
-
-resource "azurerm_virtual_network" "example" {
-  name                = "example-vnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
-}
-
-resource "azurerm_subnet" "frontend" {
-  name                 = "frontend-subnet"
-  resource_group_name  = azurerm_resource_group.rg_apputb.name
-  virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = ["10.0.1.0/24"]
-}
-
-resource "azurerm_public_ip" "example" {
-  name                = "example-pip"
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
-
 resource "azurerm_application_gateway" "example" {
   name                = "example-appgateway"
   location            = azurerm_resource_group.rg_apputb.location
