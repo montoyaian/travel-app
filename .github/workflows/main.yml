@@ -25,7 +25,7 @@ jobs:
     - name: Checkout código
       uses: actions/checkout@v2
       with:
-        ref: back-end
+        submodules: false
 
   
     - name: Azure CLI script
