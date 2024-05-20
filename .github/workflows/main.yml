@@ -7,32 +7,9 @@ on:
     branches: [ "back-end" ]
 
 jobs:
- build:
-    runs-on: ubuntu-latest
-    outputs:
-      tag_id: ${{ steps.date.outputs.date }}
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Get timestamp 
-      id: date
-      run: echo "date=$(TZ=':America/Bogota' date +'%Y-%m-%dT%H-%M-%S')" >> $GITHUB_OUTPUT
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag montoyita41/proyecto:${{ steps.date.outputs.date }}
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag montoyita41/proyecto:latest
-    - name: Login to Dockerhub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Push the Docker image to Dockerhub
-      run: docker push montoyita41/proyecto:${{ steps.date.outputs.date }}
-    - name: Push the Docker image to Dockerhub
-      run: docker push montoyita41/proyecto:latest
  deploykubernetes:
     runs-on: ubuntu-latest
-    needs: [build]
     steps:
 
     - uses: actions/checkout@v4
@@ -45,21 +22,18 @@ jobs:
       with:
         creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
     
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v1
+    - name: Checkout código
+      uses: actions/checkout@v2
       with:
-        version: 'latest'
-    
-    - uses: actions/checkout@v4
-      
+        ref: back-end
+
+  
     - name: Azure CLI script
       uses: azure/cli@v2
       with:
-        azcliversion: latest
         inlineScript: |
           az aks install-cli
           az account set --subscription 83c62e88-35c0-4f8d-8636-f21914cc6d80
           az aks get-credentials --resource-group travel-rg --name kubernetes-travel --overwrite-existing
-          kubectl apply -f terraform/k8s/api-deployment.yaml
-          sleep 30s && kubectl get service 
-
+          kubectl apply -f terraform/k8s/api-deployment.yml  --validate=false  
+          sleep 30s && kubectl get service
