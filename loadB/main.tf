@@ -11,19 +11,11 @@ provider "azurerm" {
   features {}
 }
 
-variable "tag_id" {
-  type = string
-}
-
-resource "azurerm_resource_group" "rg_apputb" {
-  name     = "rg_apputb2"
-  location = "East Us"
-}
 
 resource "azurerm_application_gateway" "example" {
   name                = "example-appgateway"
-  location            = azurerm_resource_group.rg_apputb.location
-  resource_group_name = azurerm_resource_group.rg_apputb.name
+  location            = "East Us"
+  resource_group_name = "rg_apputb2"
   sku {
     name     = "Standard_v2"
     tier     = "Standard_v2"
@@ -100,7 +92,7 @@ resource "azurerm_dns_zone" "example" {
 resource "azurerm_dns_a_record" "example" {
   name                = "app-service-travel"
   zone_name           = azurerm_dns_zone.example.name
-  resource_group_name = azurerm_dns_zone.example.resource_group_name
+  resource_group_name = "rg_apputb2"
   ttl                 = 300
   records             = [azurerm_public_ip.example.ip_address]
 }
@@ -108,7 +100,7 @@ resource "azurerm_dns_a_record" "example" {
 resource "azurerm_dns_a_record" "example1" {
   name                = "app-service-travel1"
   zone_name           = azurerm_dns_zone.example.name
-  resource_group_name = azurerm_dns_zone.example.resource_group_name
+  resource_group_name = "rg_apputb2"
   ttl                 = 300
   records             = [azurerm_public_ip.example.ip_address]
 }
