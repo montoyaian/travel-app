@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Front-end
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run Terraform
         run: |
-              set -e 
+              set -e
               terraform init -input=false
               terraform apply -input=false -auto-approve
         env:
@@ -64,4 +64,4 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_tag_id: ${{ needs.build.outputs.tag_id }}
+
