@@ -16,7 +16,7 @@ variable "tag_id" {
 }
 
 resource "azurerm_resource_group" "rg_apputb" {
-  name     = "rg_apputb2"
+  name     = "rg_apputb3"
   location = "East Us"
 }
 
